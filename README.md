@@ -1,6 +1,6 @@
 # Soldering Iron Automatic Shut-Off: Controller Software
 
-ELEC 290 group project. The software structure follows the **CP2 System Design & Architecture (Section 3, v5)**.
+ELEC 290 group project. The software structure follows the **System Design & Architecture**.
 
 **Status:** skeleton only. Every file contains a docstring explaining what it does, which part of the design it implements, and a `TODO` checklist. Function bodies raise `NotImplementedError`. The full task list is in [`TODO.md`](TODO.md).
 
@@ -8,7 +8,7 @@ ELEC 290 group project. The software structure follows the **CP2 System Design &
 
 A Raspberry Pi 4B watches one soldering workstation. When the iron is on and nobody is there, it waits (**Grace**, 3 min, green LED blinks), then warns (**Warning**, 2 min, yellow LED + buzzer), then cuts power to the iron through a Wi-Fi smart plug and checks that the power really went off (**Cut Off**). If anything goes wrong (a sensor, the plug, or the network), it goes to **Fault**. The plug has its own watchdog: if the Pi stops sending heartbeats for 20 s, the plug turns the iron off by itself.
 
-## Hardware (from CP2)
+## Hardware
 
 | Part | Role | Interface |
 |---|---|---|
@@ -69,9 +69,6 @@ soldering-shutoff/
     ├── test_faults.py
     └── test_shelly_client.py
 ```
-
-**Why it's split this way:** the logic (`state_machine`, `faults`, `presence`, `iron_sensing`) never touches hardware directly. It takes readings and a time value as inputs. That means most of the system can be written and tested on a laptop before the Pi is wired, and team members can work on drivers and logic in parallel.
-
 ## How the pieces connect
 
 ```
@@ -88,7 +85,7 @@ soldering-shutoff/
  heartbeat thread ──────────────────────────▶ plug watchdog script (20 s)
 ```
 
-## Traceability (requirements → code)
+## Traceability
 
 Only requirements mentioned in the CP2 architecture notes are listed. The RTM owner should complete this table.
 
@@ -122,7 +119,3 @@ python3 -m pytest -q
 - The plug's own watchdog cuts power if the Pi disappears. Test this before trusting the system.
 - **Residual risk:** a welded relay in the plug can be *detected* (power still flowing after OFF) but not fixed by software. The system alarms in Fault and a person must unplug the iron.
 - Power the Pi from an unswitched outlet (A4).
-
-## Assumptions (from CP2)
-
-A1 an energized iron draws more than P_on averaged over 30 s · A2 one system per workstation · A3 120 V iron far below 15 A · A4 Pi adapter on an unswitched outlet · A5 private Pi-hosted 2.4 GHz network.
