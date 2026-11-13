@@ -1,0 +1,9 @@
+# Raspberry Pi 4B, Raspberry Pi OS, Python 3.
+# On the Pi, apt packages (python3-gpiozero, python3-spidev, python3-opencv)
+# are often easier than pip for these. Pin versions once the build works.
+gpiozero
+spidev
+opencv-python-headless
+requests
+sdnotify
+pytest

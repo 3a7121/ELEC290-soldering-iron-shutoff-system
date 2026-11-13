@@ -1,0 +1,29 @@
+# systemd unit for the shut-off controller.
+# Install: sudo cp deploy/shutoff.service /etc/systemd/system/
+#          sudo systemctl daemon-reload && sudo systemctl enable --now shutoff
+#
+# TODO:
+#   [ ] Set WorkingDirectory / User to where the code lives on the Pi.
+#   [ ] User needs groups gpio, spi, video (camera).
+#   [ ] Tune WatchdogSec: must be longer than the worst loop tick, shorter than
+#       the plug watchdog (20 s) so a hung service restarts before power is cut
+#       where possible.
+#   [ ] Make sure the Pi-hosted Wi-Fi network is up before start (After=).
+
+[Unit]
+Description=Soldering iron automatic shut-off controller
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=notify
+User=pi
+WorkingDirectory=/home/pi/soldering-shutoff
+ExecStart=/usr/bin/python3 -m shutoff
+Restart=always
+RestartSec=2
+WatchdogSec=10
+NotifyAccess=main
+
+[Install]
+WantedBy=multi-user.target
