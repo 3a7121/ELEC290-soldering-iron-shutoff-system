@@ -24,9 +24,9 @@ import requests
  
 # ---- Settings --------------------------------------------------------------
  
-PLUG_IP = "10.184.67.170"  # change to the plug's IP on the Pi's network
-SWITCH_ID = 0              # the plug has one switch, number 0
-TIMEOUT_S = 2.0            # give up if the plug doesn't answer in this time
+PLUG_IP = config.PLUG_IP  # change to the plug's IP on the Pi's network
+SWITCH_ID = PLUG_SWITCH_ID              # the plug has one switch, number 0
+TIMEOUT_S = HTTP_TIMEOUT_S            # give up if the plug doesn't answer in this time
  
  
 class PlugError(Exception):

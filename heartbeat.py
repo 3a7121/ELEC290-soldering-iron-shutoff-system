@@ -32,10 +32,10 @@ import plug   # uses plug.PLUG_IP so the IP is only set in one place
  
 # ---- Settings --------------------------------------------------------------
  
-SCRIPT_ID = 1           # id of plug_watchdog.js on the plug (shown in the plug's Scripts page)
-PERIOD_S = 5.0          # send a heartbeat this often
-OK_WINDOW_S = 10.0      # heartbeat_ok() is False if no success for this long (2 missed beats)
-TIMEOUT_S = 2.0         # keep well under PERIOD_S so a slow reply can't delay the next beat
+SCRIPT_ID = config.PLUG_SCRIPT_ID          # id of plug_watchdog.js on the plug (shown in the plug's Scripts page)
+PERIOD_S = config.HEARTBEAT_PERIOD_S         # send a heartbeat this often
+OK_WINDOW_S = config.HEARTBEAT_OK_WINDOW_S      # heartbeat_ok() is False if no success for this long (2 missed beats)
+TIMEOUT_S = config.HTTP_TIMEOUT_S         # keep well under PERIOD_S so a slow reply can't delay the next beat
  
 # ---- Internal state (only changed by the functions below) -------------------
  
