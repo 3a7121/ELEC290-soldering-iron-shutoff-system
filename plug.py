@@ -19,7 +19,7 @@ Every function raises plug.PlugError if the plug can't be reached or sends
 back something unexpected, so the caller can catch that one exception and
 treat it as a fault.
 """
- 
+import config
 import requests
  
 # ---- Settings --------------------------------------------------------------
