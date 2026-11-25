@@ -25,7 +25,9 @@ Manual test (no main loop needed):  python3 heartbeat.py
 """
  
 import time
- 
+
+import config
+
 import requests
  
 import plug   # uses plug.PLUG_IP so the IP is only set in one place
