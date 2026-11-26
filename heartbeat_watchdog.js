@@ -10,16 +10,7 @@
 //     arriving -> switched straight back off, so the iron can't be powered
 //     while the Pi isn't watching.
 //   - Script (re)start -> outlet off, until the Pi checks in.
-//
-// Worst case from the Pi's last heartbeat to power off:
-//   20 s timeout + up to 1 s until the next check + 1 s uptime resolution = ~22 s
-//
-// Install: plug web page (http://<plug-ip>) -> Scripts -> create script,
-// paste this file, Save, Start, and turn on "Run on startup".
-// The script id (usually 1 for the first script) goes in heartbeat.py.
-//
-// Written without arrow functions or template strings to stay inside the
-// JavaScript subset Shelly scripts support.
+
 
 let WATCHDOG_S = 20;   // cut power after this many seconds without a heartbeat
 let CHECK_MS = 1000;   // how often to check, in milliseconds
